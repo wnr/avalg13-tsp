@@ -1,9 +1,13 @@
+import com.sun.org.apache.bcel.internal.generic.IDIV;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class Utils {
     static public class Vertex {
@@ -42,7 +46,7 @@ public class Utils {
         return (float)Math.sqrt(a + b);
     }
 
-    public static float pathDistance(Integer[] indices, Vertex[] vertices) {
+    public static float pathDistance(int[] indices, Vertex[] vertices) {
         float sum = 0f;
 
         int last = indices[0];
@@ -69,13 +73,21 @@ public class Utils {
         return vertices;
     }
 
-    public static Integer[] parseOutput(String output) {
+    public static int[] parseOutput(String output) {
+        int scale = 0;
+
+        Pattern p = Pattern.compile("^0|(\\n0\\n)|0$");
+
+        if(!p.matcher(output).find()) {
+            scale = 1;
+        }
+
         String[] lines = output.split(System.getProperty("line.separator"));
 
-        Integer[] vertices = new Integer[lines.length];
+        int[] vertices = new int[lines.length];
 
         for(int i = 0; i < lines.length; i++) {
-            vertices[i] = Integer.parseInt(lines[i]);
+            vertices[i] = Integer.parseInt(lines[i]) - scale;
         }
 
         return vertices;
@@ -84,5 +96,19 @@ public class Utils {
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return encoding.decode(ByteBuffer.wrap(encoded)).toString();
+    }
+
+    public static String pathToOutput(int[] indices) {
+        String output = "";
+
+        for(int i = 0; i < indices.length; i++) {
+            output += indices[i];
+
+            if(i != indices.length-1) {
+                output += "\n";
+            }
+        }
+
+        return output;
     }
 }

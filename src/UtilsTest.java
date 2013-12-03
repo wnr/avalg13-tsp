@@ -41,7 +41,7 @@ public class UtilsTest {
         Utils.Vertex[] vertices = {new Utils.Vertex(1f, 12f), new Utils.Vertex(19f, 2f), new Utils.Vertex(-1.2f, 12f), new Utils.Vertex(-9f, -9f)};
 
         {
-            Integer[] indices = {0, 3, 1};
+            int[] indices = {0, 3, 1};
             float expected = Utils.distance(vertices[0], vertices[3]) + Utils.distance(vertices[3], vertices[1]);
             float actual = Utils.pathDistance(indices, vertices);
             assertEquals(expected, actual, Utils.EPSILON);
@@ -62,13 +62,43 @@ public class UtilsTest {
 
     @Test
     public void testParseOutput() {
-        String output = "9\n1\n3\n5";
-        Integer[] expected = {9, 1, 3, 5};
-        Integer[] actual = Utils.parseOutput(output);
-        assertEquals(expected.length, actual.length);
-        assertEquals(expected[0], actual[0], Utils.EPSILON);
-        assertEquals(expected[1], actual[1], Utils.EPSILON);
-        assertEquals(expected[2], actual[2], Utils.EPSILON);
-        assertEquals(expected[3], actual[3], Utils.EPSILON);
+        {
+            String output = "0\n1\n3\n5";
+            int[] expected = {0, 1, 3, 5};
+            int[] actual = Utils.parseOutput(output);
+            assertEquals(expected.length, actual.length);
+            assertEquals(expected[0], actual[0], Utils.EPSILON);
+            assertEquals(expected[1], actual[1], Utils.EPSILON);
+            assertEquals(expected[2], actual[2], Utils.EPSILON);
+            assertEquals(expected[3], actual[3], Utils.EPSILON);
+        }
+        {
+            String output = "1\n2\n3\n4";
+            int[] expected = {0, 1, 2, 3};
+            int[] actual = Utils.parseOutput(output);
+            assertEquals(expected.length, actual.length);
+            assertEquals(expected[0], actual[0], Utils.EPSILON);
+            assertEquals(expected[1], actual[1], Utils.EPSILON);
+            assertEquals(expected[2], actual[2], Utils.EPSILON);
+            assertEquals(expected[3], actual[3], Utils.EPSILON);
+        }
+        {
+            String output = "1\n2\n30\n4";
+            int[] expected = {0, 1, 29, 3};
+            int[] actual = Utils.parseOutput(output);
+            assertEquals(expected.length, actual.length);
+            assertEquals(expected[0], actual[0], Utils.EPSILON);
+            assertEquals(expected[1], actual[1], Utils.EPSILON);
+            assertEquals(expected[2], actual[2], Utils.EPSILON);
+            assertEquals(expected[3], actual[3], Utils.EPSILON);
+        }
+    }
+
+    @Test
+    public void testPathToOutput() {
+        int[] indices = {4,12,41,2,5,12};
+        String expected = "4\n12\n41\n2\n5\n12";
+        String actual = Utils.pathToOutput(indices);
+        assert(expected.equals(actual));
     }
 }

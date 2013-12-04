@@ -15,19 +15,20 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
 
         int points = Integer.parseInt(in.readLine());
-        float[] inputCoords = new float[points*2];
+        Vertex[] inputCoords = new Vertex[points];
         String[] pointCoord;
         for (int i = 0; i < points; i++) {
             pointCoord = in.readLine().split(" ");
-            inputCoords[i * 2] = Float.parseFloat(pointCoord[0]);
-            inputCoords[i * 2 + 1] = Float.parseFloat(pointCoord[1]);
+            Vertex v = new Vertex(Float.parseFloat(pointCoord[0]), Float.parseFloat(pointCoord[1]), i);
+            inputCoords[i] = v;
         }
 
-        NaiveGreedy naiveGreedy = new NaiveGreedy(inputCoords);
+        int[] distanceMatrix = Utils.computeDistanceMatrix(inputCoords);
+
+        NaiveGreedy naiveGreedy = new NaiveGreedy(inputCoords, distanceMatrix);
         int[] bestPath = naiveGreedy.findPath();
 
-        Commons.ThreeOptimize(bestPath, inputCoords);
-        for(int point: bestPath){
+        for (int point : bestPath) {
             System.out.println(point);
         }
     }

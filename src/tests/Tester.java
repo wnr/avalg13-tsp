@@ -12,18 +12,19 @@ import core.*;
 
 public class Tester {
     ArrayList<Vertex[]> inputs;
-    ArrayList<Integer> optDistances;
+    ArrayList<Integer>  optDistances;
 
     @Before
     public void setUp() throws Exception {
         inputs = new ArrayList<Vertex[]>();
         optDistances = new ArrayList<Integer>();
 
-        for(int i = 0; ; i++) {
+        for (int i = 0; ; i++) {
             try {
                 inputs.add(Utils.parseInput(Utils.readFile("test/graph" + i + ".in", Charset.defaultCharset())));
                 optDistances.add(Integer.parseInt(Utils.readFile("test/graph" + i + ".out", Charset.defaultCharset())));
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 break;
             }
         }
@@ -34,7 +35,7 @@ public class Tester {
 
         DecimalFormat df = new DecimalFormat("#.##");
 
-        System.out.println(name + " found path \t" + df.format((optDistance / dist)*100f) + "%\t\tof optimal path in \t" + time + "ms.");
+        System.out.println(name + " found path \t" + df.format((optDistance / dist) * 100f) + "%\t\tof optimal path in \t" + time + "ms.");
     }
 
     @Test
@@ -46,10 +47,10 @@ public class Tester {
             String output = "0\n" + "8\n" + "5\n" + "4\n" + "3\n" + "9\n" + "6\n" + "2\n" + "1\n" + "7";
             ng.setVertices(Utils.parseInput(input));
             String actual = Utils.pathToOutput(ng.findPath());
-            assert(output.equals(actual));
+            assert (output.equals(actual));
         }
 
-        for(int i = 0; i < inputs.size(); i++) {
+        for (int i = 0; i < inputs.size(); i++) {
             Vertex[] vertices = inputs.get(i);
             long start = System.currentTimeMillis();
             ng.setVertices(vertices);

@@ -4,12 +4,13 @@ package core;
  * @author mathiaslindblom
  */
 public class NaiveGreedy {
-    float[] pointsCoordinates;
-    int[]   pathTaken;
-    int     numberOfPoints;
+    Vertex[] pointsCoordinates;
+    int[]    pathTaken;
+    int      numberOfPoints;
+    int[]    distanceMatrix;
 
-    public NaiveGreedy(float[] inputCoords) {
-        numberOfPoints = inputCoords.length / 2;
+    public NaiveGreedy(Vertex[] inputCoords, int[] distanceMatrix) {
+        numberOfPoints = inputCoords.length;
         pointsCoordinates = inputCoords;
         pathTaken = new int[numberOfPoints];
     }
@@ -18,17 +19,13 @@ public class NaiveGreedy {
         numberOfPoints = 0;
         pointsCoordinates = null;
         pathTaken = null;
+        distanceMatrix = null;
     }
 
     public void setVertices(Vertex[] vertices) {
         numberOfPoints = vertices.length;
-        pointsCoordinates = new float[numberOfPoints*2];
+        pointsCoordinates = vertices;
         pathTaken = new int[numberOfPoints];
-
-        for(int i = 0; i < vertices.length; i++) {
-            pointsCoordinates[i*2] = vertices[i].x;
-            pointsCoordinates[i*2+1] = vertices[i].y;
-        }
     }
 
     public int[] findPath() {
@@ -38,7 +35,7 @@ public class NaiveGreedy {
         for (int i = 1; i < numberOfPoints; i++) {
             int best = -1;
             for (int j = 0; j < numberOfPoints; j++) {
-                if (!usedPoints[j] && (best == -1 || Commons.dist(pathTaken[i - 1], j, pointsCoordinates) < Commons.dist(pathTaken[i - 1], best, pointsCoordinates))) {
+                if (!usedPoints[j] && (best == -1 || Utils.distance(pointsCoordinates[pathTaken[i - 1]], pointsCoordinates[j], distanceMatrix) < Utils.distance(pointsCoordinates[pathTaken[i - 1]], pointsCoordinates[best], distanceMatrix))) {
                     best = j;
                 }
             }
@@ -47,6 +44,4 @@ public class NaiveGreedy {
         }
         return pathTaken;
     }
-
-
 }

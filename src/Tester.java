@@ -15,7 +15,7 @@ public class Tester {
         inputs = new ArrayList<Utils.Vertex[]>();
         optPaths = new ArrayList<int[]>();
 
-        for(int i = 1; ; i++) {
+        for(int i = 0; ; i++) {
             try {
                 inputs.add(Utils.parseInput(Utils.readFile("test/graph" + i + ".in", Charset.defaultCharset())));
                 optPaths.add(Utils.parseOutput(Utils.readFile("test/graph" + i + ".out", Charset.defaultCharset())));
@@ -25,13 +25,13 @@ public class Tester {
         }
     }
 
-    private void comparePaths(int[] path, int[] optPath, Utils.Vertex[] vertices, String name) {
+    private void comparePaths(int[] path, int[] optPath, Utils.Vertex[] vertices, String name, long time) {
         float dist = Utils.pathDistance(path, vertices);
         float optDist = Utils.pathDistance(optPath, vertices);
 
         DecimalFormat df = new DecimalFormat("#.##");
 
-        System.out.println(name + " found path " + df.format((optDist / dist)*100f) + " of optimal path.");
+        System.out.println(name + " found path \t" + df.format((optDist / dist)*100f) + "% \tof optimal path in \t" + time + "ms.");
     }
 
     @Test
@@ -48,10 +48,11 @@ public class Tester {
 
         for(int i = 0; i < inputs.size(); i++) {
             Utils.Vertex[] vertices = inputs.get(i);
+            long start = System.currentTimeMillis();
             ng.setVertices(vertices);
             int[] path = ng.findPath();
-
-            comparePaths(path, optPaths.get(i), vertices, "Naive Greedy");
+            long elapsed = System.currentTimeMillis() - start;
+            comparePaths(path, optPaths.get(i), vertices, "Naive Greedy", elapsed);
         }
     }
 }

@@ -1,3 +1,5 @@
+package core;
+
 /**
  * @author mathiaslindblom
  */
@@ -10,6 +12,23 @@ public class NaiveGreedy {
         numberOfPoints = inputCoords.length / 2;
         pointsCoordinates = inputCoords;
         pathTaken = new int[numberOfPoints];
+    }
+
+    public NaiveGreedy() {
+        numberOfPoints = 0;
+        pointsCoordinates = null;
+        pathTaken = null;
+    }
+
+    public void setVertices(Vertex[] vertices) {
+        numberOfPoints = vertices.length;
+        pointsCoordinates = new float[numberOfPoints*2];
+        pathTaken = new int[numberOfPoints];
+
+        for(int i = 0; i < vertices.length; i++) {
+            pointsCoordinates[i*2] = vertices[i].x;
+            pointsCoordinates[i*2+1] = vertices[i].y;
+        }
     }
 
     public int[] findPath() {

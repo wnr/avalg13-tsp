@@ -35,7 +35,7 @@ public class NaiveGreedy {
         for (int i = 1; i < numberOfPoints; i++) {
             Vertex best = null;
             for (int j = 0; j < numberOfPoints; j++) {
-                if (!usedPoints[j] && (best == null || Utils.distance(pathTaken[i - 1], pointsCoordinates[j], distanceMatrix) < Utils.distance(pathTaken[i - 1], best, distanceMatrix))) {
+                if (!usedPoints[j] && (best == null || Utils.distance(pathTaken[i - 1], pointsCoordinates[j], distanceMatrix, numberOfPoints) < Utils.distance(pathTaken[i - 1], best, distanceMatrix, numberOfPoints))) {
                     best = pointsCoordinates[j];
                 }
             }

@@ -7,8 +7,11 @@ import java.io.InputStreamReader;
  * @author mathiaslindblom
  */
 public class Main {
+    private static final boolean DEBUG = true;
+    private static final int END_TIME = 1500;
 
     public static void main(String[] args) throws Exception {
+        long endTime = System.currentTimeMillis() + END_TIME;
         BufferedReader in;
 
         //        in = new BufferedReader(new FileReader("some_file.txt"));
@@ -28,8 +31,11 @@ public class Main {
         NaiveGreedy naiveGreedy = new NaiveGreedy(inputCoords, distanceMatrix);
         Vertex[] bestPath = naiveGreedy.findPath();
 
-        for (Vertex point : bestPath) {
-            System.out.println(point.index);
-        }
+//        System.out.println(Utils.pathToOutput(bestPath));
+
+//        System.out.println(Utils.pathDistance(bestPath));
+        Naive2Opt.run(bestPath, distanceMatrix, endTime);
+        System.out.println(Utils.pathToOutput(bestPath));
+//        System.out.println(Utils.pathDistance(bestPath));
     }
 }

@@ -41,7 +41,7 @@ public class UtilsTest {
             indices[1] = vertices[3];
             indices[2] = vertices[1];
             float expected = Utils.distance(vertices[0], vertices[3]) + Utils.distance(vertices[3], vertices[1]) + Utils.distance(vertices[1], vertices[0]);
-            float actual = Utils.pathDistance(indices, vertices);
+            float actual = Utils.pathDistance(indices);
             Assert.assertEquals(expected, actual, Utils.EPSILON);
         }
     }

@@ -15,27 +15,27 @@ public class Utils {
         return (int) (Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)) + 0.5);
     }
 
-    public static int distance(Vertex p1, Vertex p2, int[] distanceMatrix) {
+    public static int distance(Vertex p1, Vertex p2, int[] distanceMatrix, int verticesSize) {
         if (distanceMatrix == null) {
             return distance(p1, p2);
         }
         else {
-            return distanceMatrix[p1.index * distanceMatrix.length + p2.index];
+            return distanceMatrix[p1.index * verticesSize + p2.index];
         }
     }
 
-    public static float pathDistance(Vertex[] indices, Vertex[] vertices) {
-        float sum = 0f;
+    public static int pathDistance(Vertex[] vertices) {
+        int sum = 0;
 
-        int last = indices[0].index;
-        for (int i = 1; i < indices.length; i++) {
-            int current = indices[i].index;
-            sum += distance(vertices[last], vertices[current]);
+        Vertex last = vertices[0];
+        for (int i = 1; i < vertices.length; i++) {
+            Vertex current = vertices[i];
+            sum += distance(last, current);
             last = current;
         }
 
         //Also add the sum from the end to start path since the salesman needs to return to the starting point.
-        sum += distance(vertices[indices[indices.length - 1].index], vertices[indices[0].index]);
+        sum += distance(vertices[vertices.length - 1], vertices[0]);
 
         return sum;
     }

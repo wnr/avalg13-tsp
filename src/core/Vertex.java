@@ -2,13 +2,6 @@ package core;
 
 import java.text.DecimalFormat;
 
-/**
- * Created with IntelliJ IDEA.
- * User: lucas
- * Date: 12/4/13
- * Time: 1:37 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Vertex {
     public float x;
     public float y;

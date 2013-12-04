@@ -1,42 +1,13 @@
-import com.sun.org.apache.bcel.internal.generic.IDIV;
+package core;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 public class Utils {
-    static public class Vertex {
-        public float x;
-        public float y;
-
-        public Vertex(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public Vertex() {
-            this(0f, 0f);
-        }
-
-        @Override
-        public String toString() {
-            DecimalFormat df = new DecimalFormat("#.#");
-            return "(" + df.format(x) + ", " + df.format(y) + ")";
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if(!(o instanceof Vertex)) return false;
-
-            Vertex v = (Vertex)o;
-            return this.x == v.x && this.y == v.y;
-        }
-    }
 
     public static final float EPSILON = 0.001f;
 
@@ -55,6 +26,9 @@ public class Utils {
             sum += distance(vertices[last], vertices[current]);
             last = current;
         }
+
+        //Also add the sum from the end to start path since the salesman needs to return to the starting point.
+        sum += distance(vertices[indices[indices.length-1]], vertices[indices[0]]);
 
         return sum;
     }
@@ -93,7 +67,7 @@ public class Utils {
         return vertices;
     }
 
-    static String readFile(String path, Charset encoding) throws IOException {
+    public static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return encoding.decode(ByteBuffer.wrap(encoded)).toString();
     }

@@ -1,3 +1,5 @@
+package core;
+
 /**
  * @author mathiaslindblom
  */
@@ -18,7 +20,7 @@ public class NaiveGreedy {
         pathTaken = null;
     }
 
-    public void setVertices(Utils.Vertex[] vertices) {
+    public void setVertices(Vertex[] vertices) {
         numberOfPoints = vertices.length;
         pointsCoordinates = new float[numberOfPoints*2];
         pathTaken = new int[numberOfPoints];

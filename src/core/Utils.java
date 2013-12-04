@@ -24,18 +24,18 @@ public class Utils {
         }
     }
 
-    public static float pathDistance(int[] indices, Vertex[] vertices) {
+    public static float pathDistance(Vertex[] indices, Vertex[] vertices) {
         float sum = 0f;
 
-        int last = indices[0];
+        int last = indices[0].index;
         for (int i = 1; i < indices.length; i++) {
-            int current = indices[i];
+            int current = indices[i].index;
             sum += distance(vertices[last], vertices[current]);
             last = current;
         }
 
         //Also add the sum from the end to start path since the salesman needs to return to the starting point.
-        sum += distance(vertices[indices[indices.length - 1]], vertices[indices[0]]);
+        sum += distance(vertices[indices[indices.length - 1].index], vertices[indices[0].index]);
 
         return sum;
     }
@@ -79,11 +79,11 @@ public class Utils {
         return encoding.decode(ByteBuffer.wrap(encoded)).toString();
     }
 
-    public static String pathToOutput(int[] indices) {
+    public static String pathToOutput(Vertex[] indices) {
         String output = "";
 
         for (int i = 0; i < indices.length; i++) {
-            output += indices[i];
+            output += indices[i].index;
 
             if (i != indices.length - 1) {
                 output += "\n";

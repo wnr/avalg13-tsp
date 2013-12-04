@@ -34,9 +34,12 @@ public class UtilsTest {
 
     @Test
     public void testPathDistance() {
-        Vertex[] vertices = { new Vertex(1f, 12f), new Vertex(19f, 2f), new Vertex(-1.2f, 12f), new Vertex(-9f, -9f) };
+        Vertex[] vertices = { new Vertex(1f, 12f,0), new Vertex(19f, 2f,1), new Vertex(-1.2f, 12f,2), new Vertex(-9f, -9f, 3) };
         {
-            int[] indices = { 0, 3, 1 };
+            Vertex[] indices = new Vertex[3];
+            indices[0] = vertices[0];
+            indices[1] = vertices[3];
+            indices[2] = vertices[1];
             float expected = Utils.distance(vertices[0], vertices[3]) + Utils.distance(vertices[3], vertices[1]) + Utils.distance(vertices[1], vertices[0]);
             float actual = Utils.pathDistance(indices, vertices);
             Assert.assertEquals(expected, actual, Utils.EPSILON);
@@ -91,7 +94,7 @@ public class UtilsTest {
 
     @Test
     public void testPathToOutput() {
-        int[] indices = { 4, 12, 41, 2, 5, 12 };
+        Vertex[] indices = { new Vertex(0,0,4), new Vertex(0,0,12), new Vertex(0,0,41), new Vertex(0,0,2),new Vertex(0,0,5),new Vertex(0,0,12)};
         String expected = "4\n12\n41\n2\n5\n12";
         String actual = Utils.pathToOutput(indices);
         assert (expected.equals(actual));

@@ -26,10 +26,10 @@ public class Main {
         int[] distanceMatrix = Utils.computeDistanceMatrix(inputCoords);
 
         NaiveGreedy naiveGreedy = new NaiveGreedy(inputCoords, distanceMatrix);
-        int[] bestPath = naiveGreedy.findPath();
+        Vertex[] bestPath = naiveGreedy.findPath();
 
-        for (int point : bestPath) {
-            System.out.println(point);
+        for (Vertex point : bestPath) {
+            System.out.println(point.index);
         }
     }
 }

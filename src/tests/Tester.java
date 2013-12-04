@@ -30,7 +30,7 @@ public class Tester {
         }
     }
 
-    private void comparePaths(int[] path, int optDistance, Vertex[] vertices, String name, long time) {
+    private void comparePaths(Vertex[] path, int optDistance, Vertex[] vertices, String name, long time) {
         float dist = Utils.pathDistance(path, vertices);
 
         DecimalFormat df = new DecimalFormat("#.##");
@@ -54,7 +54,7 @@ public class Tester {
             Vertex[] vertices = inputs.get(i);
             long start = System.currentTimeMillis();
             ng.setVertices(vertices);
-            int[] path = ng.findPath();
+            Vertex[] path = ng.findPath();
             long elapsed = System.currentTimeMillis() - start;
             comparePaths(path, optDistances.get(i), vertices, "Naive Greedy", elapsed);
         }

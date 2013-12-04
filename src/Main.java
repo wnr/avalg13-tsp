@@ -24,6 +24,7 @@ public class Main {
         NaiveGreedy naiveGreedy = new NaiveGreedy(inputCoords);
         int[] bestPath = naiveGreedy.findPath();
 
+        Commons.ThreeOptimize(bestPath, inputCoords);
         for(int point: bestPath){
             System.out.println(point);
         }

@@ -28,6 +28,12 @@ public class Tester {
                 break;
             }
         }
+        //This is for profiling
+//        for(int j = 0; j< 1000; j++){
+//        int i = 5;
+//        inputs.add(Utils.parseInput(Utils.readFile("test/graph" + i + ".in", Charset.defaultCharset())));
+//        optDistances.add(Integer.parseInt(Utils.readFile("test/graph" + i + ".out", Charset.defaultCharset())));
+//        }
     }
 
     private void comparePaths(Vertex[] path, int optDistance, String name, long time) {
@@ -53,10 +59,15 @@ public class Tester {
         for (int i = 0; i < inputs.size(); i++) {
             Vertex[] vertices = inputs.get(i);
             long start = System.currentTimeMillis();
+            int[] distances = Utils.computeDistanceMatrix(vertices);
+            ng.setDistances(distances);
             ng.setVertices(vertices);
             Vertex[] path = ng.findPath();
             long elapsed = System.currentTimeMillis() - start;
             comparePaths(path, optDistances.get(i), "Naive Greedy", elapsed);
+            Naive2Opt.run(path,distances, System.currentTimeMillis()+50000);
+            elapsed = System.currentTimeMillis() - start;
+            comparePaths(path, optDistances.get(i), "Using 3Opt", elapsed);
         }
     }
 }

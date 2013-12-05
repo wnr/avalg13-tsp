@@ -1,6 +1,6 @@
 package core;
 
-public class Naive2Opt {
+public class Naive3Opt {
     private static final boolean SWAP_ASAP = true;
 
     public static void run(Vertex[] path, int[] distances, long endTime) {
@@ -11,6 +11,8 @@ public class Naive2Opt {
         Vertex e1v;
         Vertex e2u;
         Vertex e2v;
+        Vertex e3u;
+        Vertex e3v;
 
         //Loop until a gain is found.
         while (gain == 0 && !abortLoop) {

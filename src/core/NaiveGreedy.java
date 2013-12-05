@@ -44,4 +44,8 @@ public class NaiveGreedy {
         }
         return pathTaken;
     }
+
+    public void setDistances(int[] distances) {
+        this.distanceMatrix = distances;
+    }
 }

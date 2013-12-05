@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
  */
 public class Main {
     private static final boolean DEBUG = true;
-    private static final int END_TIME = 1500;
+    private static final int END_TIME = 1700;
 
     public static void main(String[] args) throws Exception {
         long endTime = System.currentTimeMillis() + END_TIME;
